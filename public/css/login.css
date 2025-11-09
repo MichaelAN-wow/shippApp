@@ -1,0 +1,260 @@
+body {
+    background-color: #2f2f2f;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-image: url('/images/login_background.png');
+}
+
+.register-container {
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 60vw;
+    margin: 0 20px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.banner-container h6{
+ margin-top: 15px;
+}
+
+.form-section {
+    padding: 25px 30px;
+    text-align: center;
+    width: 50%;  /* Adjust as needed */
+    max-width: 380px;
+}
+
+.info-section {
+    background-color: #fff5e1;
+    padding: 40px 30px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info-section h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.info-section p {
+    font-size: 16px;
+    color: #333;
+    margin: 20px 0;
+}
+
+.register-banner-container {
+    display: flex; /* Use Flexbox */
+    flex-direction: column; /* Align items vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    width: 100%; /* Ensure full width */
+    padding: 15px 0; /* Add some padding */
+}
+
+.register-banner-container img{
+    width: 200px;
+}
+
+.info-section p {
+    font-size: 16px;
+    color: #333;
+    margin: 20px 0;
+}
+
+.quote-box {
+    max-width: 600px; /* Control the width of the quote section */
+    margin: 20px auto; /* Center the section and add margin */
+    padding: 20px; /* Add padding inside the section */
+    background-color: #f9f9f9; /* Light background color for the quote */
+    border-left: 5px solid #ffd700; /* Highlight the quote with a colored border */
+    border-radius: 5px; /* Slightly round the corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+}
+
+
+blockquote {
+    font-size: 18px; /* Increase the font size for the quote */
+    font-style: italic; /* Italicize the quote */
+    color: #333; /* Dark text color for readability */
+    margin: 0 0 10px 0; /* Adjust margins */
+    line-height: 1.6; /* Space out the lines for readability */
+}
+
+cite {
+    display: block; /* Ensure it takes a full line */
+    text-align: right; /* Align the citation to the right */
+    font-size: 16px; /* Slightly smaller font size for the citation */
+    color: #555; /* Lighter color for the citation */
+    font-style: normal; /* Normal text style for the citation */
+    margin-top: 10px; /* Add some space above the citation */
+}
+
+.signup-promo {
+    text-align: center; /* Center the content */
+    max-width: 600px; /* Control the width of the promo section */
+    padding: 20px; /* Add padding for spacing */ 
+}
+
+.signup-promo h2 {
+    font-size: 28px; /* Larger font size for the heading */
+    color: #333; /* Dark color for the heading */
+    margin-bottom: 15px; /* Space between heading and paragraph */
+    font-weight: bold; /* Bold text for emphasis */
+}
+
+.signup-promo h2 span {
+    color: #ffd700; /* Highlight the "free!" text */
+}
+
+.quote-author {
+    font-size: 16px; /* Set a reasonable font size */
+    color: #ae82c2 !important; /* Use the specific color shown in the image */
+    font-weight: bold; /* Make the text bold */
+    text-align: right; /* Center the text */
+    margin-top: 20px; /* Add some space above the text */
+}
+
+
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+    .info-section {
+        display: none;
+    }
+
+    .form-section {
+        width: 100%;
+    }
+}
+
+.login-container {
+    background-color: #ffffff;
+    padding: 25px 30px; /* Reduced padding */
+    border-radius: 8px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 380px; /* Adjusted width */
+}
+
+.login-container img, .register-container img {
+    width: 200px; /* Reduced logo size */
+}
+
+.login-container h6 {
+    color: #888888;
+    margin-bottom: 20px; /* Reduced margin below the heading */
+    font-size: 14px; /* Reduced font size */
+}
+
+.btn-yellow {
+    background-color: #ffd700;
+    color: #000;
+    border: none;
+    padding: 10px 20px; /* Reduced button padding */
+    font-size: 14px; /* Reduced font size */
+}
+
+.btn-yellow:hover {
+    background-color: #ffcc00;
+}
+
+.form-group .form-control {
+    border-radius: 4px;
+    padding-left: 40px;
+    padding-right: 30px; /* Adjusted padding */
+    height: 38px; /* Reduced height of the input fields */
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 15px; /* Reduced margin between input fields */
+}
+
+.input-group .view-hide-icon {
+    right: 15px;
+}
+
+.or-separator {
+    margin: 25px 0; /* Reduced margin around separator */
+    text-align: center;
+    border-bottom: 1px solid #cccccc;
+    line-height: 0.1em;
+}
+
+.or-separator span {
+    background: #ffffff;
+    padding: 0 10px;
+    color: #888888;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.social-buttons .btn {
+    flex: 1;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    padding: 8px 10px; /* Reduced padding */
+    font-size: 14px; /* Reduced font size */
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+}
+
+.social-buttons .btn img {
+    margin-right: 8px;
+    height: 18px; /* Reduced icon size */
+    width: 18px;  /* Reduced icon size */
+}
+
+.forgot-password {
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 15px; /* Reduced margin below the "Forgot Password" link */
+}
+
+.forgot-password a {
+    color: #888888;
+    text-decoration: none;
+    font-size: 13px; /* Reduced font size */
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.mt-4 {
+    margin-top: 15px !important; /* Reduced margin above the "Create a new account" link */
+}
+
+.create-account-link {
+    display: block;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #191D23;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.create-account-link:hover {
+    text-decoration: underline;
+    color: #191D23;
+}

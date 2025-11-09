@@ -1,0 +1,19 @@
+:root {
+    /* Background Colors */
+    --color-dark-gray: #2D2D2D;
+    --color-light-yellow: #FFCD29;
+    --color-off-white: #fffefb;
+    --color-hover-dark-yellow: #cca320;
+    --color-hover-gray: #cccccc;
+    --color-light-gray: #f7f7f7;
+
+    /* Text Colors */
+    --color-white: #ffffff;
+    --color-dark-gray-text: #2D2D2D;
+    --color-black: #333333;
+
+    /* Border Colors */
+    --color-light-gray-border: #d5d5d5;
+    --color-gray-border: #dddddd;
+}
+

@@ -1,0 +1,244 @@
+.draggable {
+    cursor: pointer;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 5px;
+    user-select: none;
+    /* This will make the text non-selectable */
+}
+
+.droppable {
+    min-height: 100px;
+    background-color: #f0f0f0;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.modal-header .close {
+    margin: -1rem -1rem -1rem auto;
+}
+
+.modal-body p {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.update-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.update-item strong {
+    font-weight: bold;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-footer .btn {
+    width: 48%;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.draggable {
+    cursor: pointer;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 5px;
+    user-select: none;
+}
+
+.production-name {
+    font-weight: bold;
+}
+
+.production-details {
+    font-size: 0.9em;
+    color: #7091A4;
+}
+
+.text-danger {
+    color: #f98a8a !important;
+}
+
+.empty-state {
+    text-align: center;
+    color: #ccc;
+    padding: 20px;
+}
+
+.empty-title {
+    color: #7091A4 !important;
+    /* gray color */
+    margin-bottom: 5px;
+}
+
+.empty-text {
+    color: #bbb;
+    /* lighter gray color */
+}
+
+#production-header {
+    margin-bottom: 20px;
+}
+
+#production-header h5 {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#productionDetailsModalLabel div {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+#production-items h5,
+#production-details h5 {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#production-summary,
+#production-materials {
+    margin-top: 10px;
+}
+
+#production-summary div {
+    margin-bottom: 10px;
+}
+
+#production-items div,
+#production-details div {
+    margin-bottom: 5px;
+}
+
+.product-item {
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-item.selected {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.avatar-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    background-color: #6c757d;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+.avatar-tooltip:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.card-production {
+    border: 1px solid #D5D5D5 !important;
+    border-radius: 10px !important;
+    margin: 1rem 5rem;
+}
+
+.droppable {
+    background-color: #fffefb;
+    border-radius: 10px;
+}
+
+.draggable {
+    background-color: #fff;
+    border-radius: 10px;
+    margin-top: 0.9rem;
+    box-shadow: 0px 6px 6px -5px rgba(0, 0, 0, 0.2);
+}
+
+h4 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: inline-block;
+}
+
+.production-count {
+    font-size: 14px;
+    font-weight: bold;
+    color: #7a7a7a;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid #d0d0d0;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    margin-top: -9px;
+}
+
+#todo h4{
+    color: #570AA0;
+}
+
+#todo .draggable {
+    border-color: #570AA0;
+}
+
+#inprogress h4{
+    color: #DCA901;
+}
+
+#inprogress .draggable {
+    border-color: #DCA901;
+}
+
+#done h4 {
+    color: #0CC70C;
+}
+
+#done .draggable {
+    border-color: #0CC70C;
+
+}
+
+.production-name {
+    color: #2D2D2D;
+}
+
+.production-location img {
+    margin-top:-2px;
+}

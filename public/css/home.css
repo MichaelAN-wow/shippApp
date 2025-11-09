@@ -1,0 +1,579 @@
+nav,
+.main-container {
+    background-color: #FFF9F1;
+}
+
+nav {
+    max-height: 70px;
+}
+.main-container {
+    padding-bottom: 16px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    padding-bottom: 16px;
+    display: flex;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0px 6px 6px -5px rgba(0, 0, 0, 0.2);
+    /* Shadow focused on the bottom */
+    border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+    /* Bottom border */
+    position: relative;
+    z-index: 1;
+}
+
+.main-container-blank {
+    height: 100px
+}
+
+.btn-warning {
+    color: #212529;
+    background-color: #FFCD29 !important;
+    border-color: #ffc107 !important;
+}
+
+.main-container-row {
+    margin-top: 100px;
+}
+
+.services-container {
+    position: relative;
+    z-index: 10;
+    margin-top: -100px !important;
+    /* Adjust this value to overlap the main container */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 6px 6px -5px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    background-color: #2D2D2D;
+    color: white;
+}
+
+.services-container h2 {
+    color: white;
+}
+
+.service-card {
+    background-color: #FFFEFB;
+    border-radius: 40px;
+    box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+}
+
+.service-item {
+    margin-bottom: 30px;
+}
+
+.service-item img {
+    height: 40px;
+    width: 40px;
+    margin-bottom: 16px;
+    object-fit: contain;
+}
+
+.services-header {
+    font-weight: bold;
+    font-size: 35px;
+    color: #2D2D2D;
+    margin-bottom: 20px;
+}
+
+.services-subtext {
+    color: #2D2D2D;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.services-content {
+    margin: 50px;
+}
+
+.platform-container {
+    background-color: #FFF9F1;
+    border-radius: 30px;
+}
+
+.platform-text {
+    padding: 50px;
+}
+
+.platform-image {
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.highlight-shopify {
+    color: #96BF48;
+}
+
+.highlight-yellow {
+    color: #ffc107 
+}
+
+.platform-image img {
+    width: 400px;
+}
+
+.founder-container .row {
+    width: 70%;
+    margin: auto;
+}
+
+.founder-card img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+}
+
+.founder-title {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.founder-role {
+    color: #6c757d;
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+.btn-learn-more {
+    margin-top: 30px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    margin: auto;
+}
+
+.insights-content {
+    margin-top: 100px;
+}
+
+.insight-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center align all items horizontally */
+    justify-content: center;
+    /* Center align all items vertically */
+    text-align: center;
+    /* Center the text */
+}
+
+.insight-value {
+    font-family: Poppins;
+    font-size: 4rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.insight-name {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.insight-learn-more-section {
+    text-align: center;
+    /* Center the content horizontally */
+    margin-top: 20px;
+    /* Optional: Add some space above the section */
+}
+
+.sponsors-container {
+    background-color: #FFF9F1;
+    margin-top: 100px !important;
+    min-height: 250px;
+    display: flex;
+    /* Make the container a flexbox */
+    align-items: center;
+    /* Vertically center the row within the container */
+    justify-content: center;
+    /* Horizontally center the row if needed */
+}
+
+.sponsors-container .row {
+    width: 100%;
+    /* Ensure the row takes up the full width */
+    justify-content: space-around;
+    /* Distribute the columns evenly across the row */
+}
+
+.sponsors-container .col-4 {
+    padding: 0;
+    /* Remove padding to avoid extra space around logos */
+}
+
+.sponsors-container img {
+    max-width: 100%;
+    /* Ensure logos are responsive */
+    height: auto;
+    /* Maintain aspect ratio */
+}
+
+.production-container {
+    margin-top: 100px !important;
+}
+
+.production-container .subtitle {
+    font-weight: bold;
+}
+
+.card-small {
+    padding: 20px !important;
+    font-size: 0.875rem;
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    min-height: 150px;
+}
+
+.card-small .icon {
+    width: 24px;
+    /* Set a consistent size for the icon */
+    height: 24px;
+    margin-right: 10px;
+    /* Space between icon and text */
+    margin-top: 0px;
+}
+
+.card-small .card-text {
+    margin: 0;
+    /* Remove default margin */
+    font-weight: 400;
+    /* Set the font weight to normal for the text */
+    color: #555;
+    /* Use a slightly lighter gray for the text */
+}
+
+.grow-container .card {
+    background-color: #FFF9F1;
+}
+
+.grow-container .card-body {
+    padding-bottom: 10px !important;
+}
+
+
+.card {
+    border-radius: 10px;
+    border-color: transparent transparent;
+}
+
+.card-1 {
+    margin-top: 80px;
+}
+
+.card-body {
+    margin: 10px;
+}
+
+.custom-footer {
+    background-color: #FFF9F1;
+    /* Light background color */
+    color: #555;
+    /* Set a consistent text color */
+    font-size: 0.875rem;
+    /* Adjust font size */
+}
+
+.custom-footer .logo img {
+    max-width: 100%;
+    height: auto;
+    /* Ensure logo is responsive */
+}
+
+.custom-footer .footer-title {
+    font-size: 1.2rem;
+    /* Slightly larger for the section titles */
+    font-weight: bold;
+    text-transform: uppercase;
+    /* Uppercase for titles */
+    margin-bottom: 20px;
+    color: #676767;
+    /* Darker color for better contrast */
+}
+
+.custom-footer .footer-link {
+    color: #2D2D2D;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 35px;
+    font-size: 0.8rem;
+}
+
+.custom-footer .footer-link:hover {
+    color: #FFCD29 !important;
+    ;
+}
+
+.custom-footer .footer-link:hover {
+    color: #000;
+    /* Change color on hover for links */
+}
+
+.custom-footer .subscribe-input {
+    border-radius: 5px;
+    /* Rounded corners for the input */
+    border: 1px solid #ddd;
+    /* Subtle border */
+    padding: 10px 20px;
+    /* Padding for a comfortable input area */
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.custom-footer .subscribe-button {
+    border-radius: 5px;
+    /* Rounded corners for the button */
+    background-color: #FFCD29;
+    color: #212529;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+}
+
+.custom-footer .subscribe-button:hover {
+    background-color: #ffbe00;
+    /* Darker yellow on hover */
+}
+
+.custom-footer .text-center {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.footer-copyright p {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.75rem;
+}
+
+.line-above {
+    width: 80%;
+    /* Adjust the width of the line */
+    margin: 0 auto;
+    /* Center the line */
+    border: 0;
+    height: 1px;
+    background-color: #ddd;
+    /* Set the line color */
+}
+
+.light-text {
+    color: rgba(45, 45, 45, 0.5);
+    font-size: 42px;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+}
+
+.bold-text-Profit {
+    font-weight: 900;
+    /* Make sure the font weight is bold */
+    color: #2D2D2D;
+    font-size: 10em;
+    /* Adjust the font size to match the target */
+    line-height: 1;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 0;
+    /* Reduce margin to align with the icon */
+}
+
+@media only screen and (max-width: 768px) {
+    .bold-text-Profit {
+        font-size: 6rem;
+    }
+}
+
+.highlight-text {
+    color: #570aa0;
+}
+
+.highlight-purple {
+    color: #570aa0;
+}
+
+.highlight {
+    color: #FFCD29;
+}
+
+.highlight-bg {
+    background-color: #570AA0;
+    color: #FFFFFF;
+    padding: 0 4px;
+}
+
+.highlight-yellow {
+    background-color: #FFCD29;
+    color: #2D2D2D;
+    padding: 0 4px;
+}
+
+.icon {
+    margin-left: 5px;
+    /* Adjust spacing between text and icon */
+}
+
+.icon img {
+    width: 20px;
+    /* Adjust the size of the icon */
+    height: 20px;
+}
+
+.icon {
+    width: 24px;
+    /* Adjust width to a smaller size */
+    height: 24px;
+    /* Maintain aspect ratio with a matching height */
+    object-fit: contain;
+    /* Ensures the icon scales without distortion */
+    color: #570AA0;
+    /* Match the color of the icon if it’s an SVG with fill color */
+}
+
+
+.header-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.main-heading {
+    display: flex;
+    align-items: flex-end;
+}
+
+.main-heading img {
+    text-align: center;
+}
+
+.main-laptop {
+    padding-left: 50px;
+}
+
+.medium-text {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+@media (max-width: 991.98px) {
+    /* Remove max-height restriction on mobile */
+    nav {
+        max-height: none !important;
+        min-height: 70px;
+    }
+    
+    /* Ensure mobile menu has proper positioning and visibility */
+    .navbar-collapse {
+        background-color: #FFF9F1 !important;
+        padding: 15px 0;
+        margin-top: 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1111 !important;
+        position: relative;
+    }
+    
+    /* Target the expanded mobile menu specifically */
+    .navbar-collapse.show,
+    .navbar-collapse.collapsing {
+        background-color: #FFF9F1 !important;
+        border: 1px solid #e0e0e0 !important;
+        padding: 15px 0 !important;
+        margin-top: 10px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+        z-index: 1111 !important;
+        position: relative !important;
+        width: 100% !important;
+        display: block !important;
+    }
+    
+    /* Ensure the navbar container doesn't override styles */
+    .navbar {
+        background-color: #FFF9F1 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    /* Style mobile menu items */
+    .navbar-nav .nav-item {
+        padding: 5px 0;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .navbar-nav .nav-link {
+        color: #2D2D2D !important;
+        padding: 12px 20px !important;
+        border-radius: 5px;
+        margin: 3px 15px;
+        transition: background-color 0.3s ease;
+        display: block !important;
+        background-color: transparent !important;
+    }
+    
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+        background-color: #FFCD29 !important;
+        color: #2D2D2D !important;
+    }
+    
+    /* Style mobile login link */
+    .navbar-nav .nav-link.d-flex {
+        justify-content: center !important;
+        align-items: center;
+    }
+    
+    /* Mobile register button */
+    .navbar-nav .nav-item.d-lg-none .nav-link {
+        background-color: #FFCD29 !important;
+        color: #2D2D2D !important;
+        font-weight: bold;
+        margin: 10px 15px;
+        border-radius: 8px;
+    }
+    
+    /* Ensure navbar toggler is clickable */
+    .navbar-toggler {
+        border: 2px solid #2D2D2D !important;
+        padding: 4px 8px !important;
+        z-index: 1112 !important;
+        position: relative;
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.2rem rgba(255, 205, 41, 0.5) !important;
+    }
+    
+    /* Fix any overlapping issues */
+    .main-container {
+        z-index: 1 !important;
+    }
+    
+    /* Additional background fix */
+    .container-fluid {
+        position: relative;
+        z-index: 1110;
+    }
+}
+
+/* Ensure desktop view still works properly */
+@media (min-width: 992px) {
+    nav {
+        max-height: 70px;
+    }
+}

@@ -1,0 +1,53 @@
+.resource-name a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.resource-name a:hover {
+    text-decoration: underline;
+}
+
+.category-name {
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+}
+
+.card-reports {
+    margin-top: 20px;
+}
+
+.card-reports, .card-reports .card-header, .card-reports .card-body, .daterangepicker, .calendar-table {
+    background-color: #fffefb !important;
+}
+
+.card-reports h5{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-reports #sales_daterange {
+    background-color: #fffefb;
+}
+
+.unit-selector {
+    width: auto;
+    display: inline-block;
+}
+
+.unit-label {
+    font-size: 100%;
+}
+
+#productCalcsContainer th, td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#productCalcsContainer td {
+    height: auto;
+    vertical-align: middle;
+}
+
+#productCalcsContainer td input{
+    height: 100%;
+}

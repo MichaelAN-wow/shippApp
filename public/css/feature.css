@@ -1,0 +1,92 @@
+.hero-container {
+    background-color: #fffefb;
+    text-align: center;
+}
+
+.material {
+    position: relative;
+}
+
+.platform-description-detail {
+    display: none;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hero-image {
+    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+}
+
+.scrolled .full-content {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-in-out;
+    align-items: center;
+    line-height: 2;
+}
+
+.full-content {
+    min-height: 500px !important;
+}
+
+.scrolled .platform-description-detail {
+    display: block;
+    opacity: 1;
+    text-align: justify;
+    margin-left: 20px;
+}
+
+.scrolled .hero-image {
+    width: 50%;
+}
+
+.why-us {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.why-us img {
+    width: 20px;
+    /* Adjust the size of the icon */
+    margin-right: 8px;
+    /* Spacing between the icon and text */
+}
+
+.why-us p {
+    color: #9E9E9E;
+    font-weight: 600;
+    margin-bottom: 0;
+    /* Remove default margin */
+    font-size: 1.2rem;
+}
+
+.hero-heading {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.subheading {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.btn-learn-more {
+    margin-right: 10px;
+}
+
+.btn-get-started {
+    background-color: #ffc107;
+    color: white;
+}
+
+.btn-get-started:hover {
+    background-color: #e0a800;
+}
+
+.img-fluid {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 900px;
+}

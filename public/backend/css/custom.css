@@ -1,0 +1,519 @@
+@import url('color.css');
+
+body {
+    background-color: #fffefb;
+}
+
+/* Background Colors */
+.bg-dark-gray {
+    background-color: var(--color-dark-gray) !important;
+}
+
+.bg-light-yellow {
+    background-color: var(--color-light-yellow) !important;
+}
+
+.bg-off-white {
+    background-color: var(--color-off-white) !important;
+}
+
+.bg-primary-yellow {
+    background-color: var(--color-hover-dark-yellow) !important;
+}
+
+.bg-hover-gray {
+    background-color: var(--color-hover-gray) !important;
+}
+
+.bg-light-gray {
+    background-color: var(--color-light-gray) !important;
+}
+
+.bg-dashboard {
+    background-color: #2D2D2D !important;
+}
+
+/* Text Colors */
+.text-white {
+    color: var(--color-white) !important;
+}
+
+.text-dark-gray {
+    color: var(--color-dark-gray-text) !important;
+}
+
+.text-black {
+    color: var(--color-black) !important;
+}
+
+.text-primary-yellow {
+    color: var(--color-light-yellow) !important;
+}
+
+/* Border Colors */
+.border-light-gray {
+    border-color: var(--color-light-gray-border) !important;
+}
+
+.border-gray {
+    border-color: var(--color-gray-border) !important;
+}
+
+.sb-sidenav {
+    background-color: #2D2D2D !important;
+    color: white !important;
+}
+
+.navbar-brand img {
+    width: 4rem;
+    height: auto;
+}
+
+.sb-sidenav-menu {
+    overflow-y: auto;
+    height: 100vh;
+    scrollbar-width: none;
+}
+
+/* Hide scrollbar in WebKit-based browsers (Chrome, Safari) */
+.sb-sidenav-menu::-webkit-scrollbar {
+    width: 0;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav>.nav-link.active {
+    color: #fff;
+    /* Text color */
+    font-weight: bold;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav .nav>.nav-link.active {
+    color: inherit;
+    /* Default color */
+    background-color: inherit;
+    /* Default background */
+    background-color: #575654;
+    /* Background color */
+    border-radius: 10px;
+    /* Rounded corners */
+    margin-top: 10px;
+    /* Apply margin to the top */
+    margin-right: 20px;
+    /* Apply margin to the right */
+    font-weight: initial;
+}
+
+.sb-sidenav .sb-sidenav-menu .nav .nav-link {
+    display: flex;
+    align-items: center;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    position: relative;
+    margin-left: 5px;
+}
+
+.sb-nav-link-icon {
+    color: #FFCD29 !important;
+    ;
+    /* Replace this with your desired color */
+}
+
+.card-dashboard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fffefb;
+    background-clip: border-box;
+    border-radius: 0.25rem;
+    top: 25px;
+}
+
+.card-dashboard-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    font-weight: bold;
+    background-color: #fffefb;
+    border-bottom: 1px solid rgba(213, 213, 213, 0.85);
+    font-family: Helvetica;
+    font-size: 1.1rem;
+}
+
+.card-dashboard-sub-header {
+    margin: 10px;
+}
+
+.card-dashboard-sub-header-title {
+    margin-left: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.btn {
+    font-weight: bold;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-default {
+    background-color: #FFCD29;
+}
+
+.btn-default:hover {
+    background-color: #cca320;
+}
+
+.btn-white {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.btn-white:hover {
+    background-color: #cccccc !important;
+}
+
+.btn-info {
+    background-color: #570AA0 !important;
+    border-color: #570AA0 !important;
+}
+
+.btn-info:hover {
+    background-color: #5f2e8d !important;
+    border-color: #5f2e8d !important;
+}
+
+.btn-info:focus {
+    background-color: #5f2e8d !important;
+    border-color: #5f2e8d !important;
+}
+
+.card-dashboard-sub-header-controls {
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+    /* Adjust the width as needed */
+    max-width: 20rem;
+    max-height: 40px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 5px 10px 5px 40px;
+    /* Padding with space for the icon */
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    box-shadow: none;
+    background-color: #fffefb;
+}
+
+.search-input::placeholder {
+    color: #aaa;
+    /* Placeholder text color */
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #aaa;
+    /* Icon color */
+}
+
+/* Optional: Add hover and focus effects */
+.search-input:hover,
+.search-input:focus {
+    border-color: #aaa;
+    outline: none;
+}
+
+.table-responsive {
+    /* Ensures the corners are clipped */
+    border-radius: 10px;
+}
+
+.table-responsive table {
+    border-radius: 10px;
+    width: 100%;
+    border-collapse: separate;
+    /* Use separate to allow border-radius */
+    border-spacing: 0;
+    /* Remove spacing between cells */
+}
+
+
+.table-responsive th,
+.table-responsive td {
+    background-color: #fffefb;
+    color: #2d2d2d;
+    padding: 5px 12px;
+}
+
+.table-responsive th {
+    color: #84919A;
+    font-weight: bold;
+    padding: 12px;
+}
+
+.table-responsive table th:first-child {
+    border-top-left-radius: 10px;
+    background-color: inherit;
+    /* Ensure background matches */
+}
+
+.table-responsive table th:last-child {
+    border-top-right-radius: 10px;
+    background-color: inherit;
+    /* Ensure background matches */
+}
+
+.table-responsive table td:first-child:last-of-type {
+    border-bottom-left-radius: 10px;
+}
+
+.table-responsive table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+.table-responsive table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+.ajax-load {
+    background: #e9e9e9;
+    padding: 10px 0px;
+    width: 100%;
+}
+
+.table-wrapper {
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+}
+
+.table-wrapper th,
+.table-wrapper td {
+    /* white-space: nowrap; */
+}
+
+.table-responsive td:last-child {
+    min-width: 100px; /* Set the minimum width */
+}
+
+.scrollbar-wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 9px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background: #f1f1f1;
+    z-index: 1000;
+}
+
+.scrollbar-wrapper::-webkit-scrollbar {
+    height: 8px;
+    /* Height of the native scrollbar */
+}
+
+.scrollbar-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Color of the scrollbar track */
+}
+
+.scrollbar-wrapper::-webkit-scrollbar-thumb {
+    background: #ccc;
+    /* Color of the scrollbar thumb */
+    border-radius: 4px;
+    /* Rounded corners for the scrollbar thumb */
+}
+
+.scrollbar-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #888;
+    /* Darker color when hovering over the scrollbar thumb */
+}
+
+.modal-content {
+    background-color: #FFFEFB;
+    border-radius: 10px;
+}
+
+.modal-header {
+    border-bottom: 2px solid #D5D5D5;
+}
+
+.modal-title {
+    color: #2D2D2D;
+    font-weight: bold;
+}
+.modal .form-control {
+    background-color: #FFFEFB;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-control-file {
+    display: inline-block;
+    font-size: 1rem;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Optional: Custom styling for the file input */
+.form-control-file::-webkit-file-upload-button {
+    font-weight: bold;
+    border: 1px solid #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+}
+
+.form-control-file::-webkit-file-upload-button:hover {
+    background-color: #f1f1f1;
+}
+
+.form-control-file::-webkit-file-upload-button:active {
+    background-color: #e1e1e1;
+}
+
+/* Adjust the appearance of the file name text */
+.form-control-file::file-selector-button {
+    font-weight: bold;
+    border: 1px solid #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+}
+
+.form-control-file::file-selector-button:hover {
+    background-color: #f1f1f1;
+}
+
+.form-control-file::file-selector-button:active {
+    background-color: #e1e1e1;
+}
+
+#edit-button,
+#delete-button{
+    font-size: 1.2rem;
+    color: #777;
+}
+
+#edit-button:hover i,
+#delete-button:hover i {
+    color: #000;
+}
+
+.btn-primary {
+    color: #2D2D2D !important;
+    background-color: #ffcd29 !important;
+    border-color: #dca901 !important;
+}
+
+.btn-primary:disabled {
+    color: #2D2D2D !important;
+    background-color: #97917a !important;
+    border-color: #c1c1bf !important;
+}
+
+.btn-primary:hover {
+    background-color: #dcaf1b;
+    color: #2D2D2D;
+    border-color: #dca901;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+    background-color: #af8e23;
+    color: #2D2D2D;
+    border-color: #dca901;
+}
+
+#dataTable_filter {
+    display: none;
+}
+
+/* Hide the default checkbox */
+.custom-checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.custom-checkbox .checkmark {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: white;
+    border: 1px solid #bfbfbf;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+/* When the checkbox is checked, add a background color */
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+    background-color: #2196F3;
+    border-color: #2196F3;
+}
+
+/* Style the checkmark/indicator (hidden when not checked) */
+.custom-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Show the checkmark when checked */
+.custom-checkbox input[type="checkbox"]:checked + .checkmark:after {
+    display: block;
+}
+
+.remove-product-row {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+}
+
+.calendar-daterange {
+    border: 1px solid #D5D5D5;
+    border-radius: 3px;
+    color: #D5D5D5;
+    padding: 5px 10px;
+}
+
+.calendar-icon {
+    margin-left: 20px;
+}
+
+.category-name {
+    color: white;
+}
+
+.category-item {
+    color: white;
+}

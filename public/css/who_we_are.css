@@ -1,0 +1,97 @@
+.header-container {
+    background-color: #fff9f1;
+    text-align: center;
+}
+
+.header-left {
+    text-align: left;
+    margin: auto;
+}
+
+.who_we_are_header {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.who_we_are_header img {
+    width: 20px;
+    margin-right: 8px;
+}
+
+.who_we_are_header p {
+    color: #9E9E9E;
+    font-weight: 600;
+    margin-bottom: 0;
+    /* Remove default margin */
+    font-size: 1.2rem;
+}
+
+
+.header-left h4 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #23242A;
+    margin-bottom: 5px;
+}
+
+.header-left h5 {
+    font-size: 2rem;
+    color: #777;
+    font-weight: normal;
+}
+
+.container-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #23242A;
+    margin-bottom: 5px;
+}
+
+.container-content {
+    font-size: 1.2rem;
+    color: #23242A;
+    text-align: justify;
+}
+
+.sub-container {
+    background-color: white;
+}
+
+.sub-container-left, .sub-container-right {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.container-img {
+    width: 100%
+}
+
+.founders-container {
+    width: 75%;
+}
+
+.founders-image {
+    margin: auto;
+    text-align: center;
+}
+
+.founders-image img{
+    max-width: 30vw;
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+.founder-sub-container {
+    margin-top: 20px;
+}
+
+.btn-warning {
+    margin-top: 10px;
+    border-radius: 8x;
+}
+
+.container-title {
+    margin-bottom: 30px;
+}

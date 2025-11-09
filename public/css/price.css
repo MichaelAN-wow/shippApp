@@ -1,0 +1,209 @@
+.hero-container {
+    background-color: #fffefb;
+    text-align: center;
+}
+
+.material {
+    position: relative;
+}
+
+.platform-description-detail {
+    display: none;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hero-image {
+    transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+}
+
+.scrolled .full-content {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease-in-out;
+    align-items: center;
+    line-height: 2;
+}
+
+.full-content {
+    min-height: 500px !important;
+}
+
+.scrolled .platform-description-detail {
+    display: block;
+    opacity: 1;
+    text-align: justify;
+    margin-left: 20px;
+}
+
+.scrolled .hero-image {
+    width: 50%;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.price img {
+    width: 20px;
+    /* Adjust the size of the icon */
+    margin-right: 8px;
+    /* Spacing between the icon and text */
+}
+
+.price p {
+    color: #9E9E9E;
+    font-weight: 600;
+    margin-bottom: 0;
+    /* Remove default margin */
+    font-size: 1.2rem;
+}
+
+.hero-heading {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.card-pricing {
+    border: 2px solid #ffc107;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #fff8e1;
+    margin: 0 auto;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-pricing:hover {
+    border-color: #6a1b9a; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-pricing h2 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+.card-pricing h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.card-pricing h3 span {
+    font-size: 1.9rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+
+.card-pricing p.text-muted {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.price-list {
+    padding-left: 0;
+    list-style: none;
+    font-size: 1.1rem;
+}
+
+.price-list li {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price-list li span {
+    color: #28a745; /* Green tick color */
+}
+
+.trial {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-top: 70px;
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+}
+
+
+.trial:hover {
+    background-color: #efbb0e !important;
+}
+
+#accordion {
+    margin-top: 50px;
+}
+
+.faq-header {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.faq-header span {
+    color: #6a1b9a; /* Purple color for the "FAQs" part */
+}
+
+.card-header {
+    background-color: #fff;
+    border: none;
+}
+
+.btn-link {
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #343a40;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    text-align: left;
+}
+
+.btn-link:focus, .btn-link:hover {
+    text-decoration: none;
+    color: #6a1b9a;
+}
+
+.card-body {
+    font-size: 1rem;
+    color: #666;
+}
+
+.accordion {
+    width: 70%;
+    margin: auto;
+}
+
+.accordion .card {
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.accordion .card:last-child {
+    border-bottom: none; /* No border on the last card */
+}
+
+.card-header {
+    padding-left: 0px;
+}
+.card-header .fa {
+    padding-right: 0px;
+}
+
+.card-header .collapsed .fa {
+    transform: rotate(180deg); /* Flip the arrow icon when collapsed */
+}
