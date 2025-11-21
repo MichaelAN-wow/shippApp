@@ -31,7 +31,7 @@
                         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="actionMenu{{ $shipment->id }}" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-cog"></i>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="actionMenu{{ $shipment->id }}">
+                        <ul class="dropdown-menu" aria-labelledby="actionMenu{{ $shipment->id }}" style="z-index: 1000;position: absolute;">
                             <li>
                                 <button class="dropdown-item btn-in-transit-view" 
                                     data-shipment-id="{{ $shipment->id }}" 

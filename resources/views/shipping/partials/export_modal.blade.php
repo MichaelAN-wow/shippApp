@@ -20,7 +20,7 @@
                     <p>All key columns will be included: <strong>Order #, Customer, Carrier, Tracking, Status, Dates, Cost</strong>.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Export CSV</button>
+                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Export CSV</button>
                 </div>
             </div>
         </form>

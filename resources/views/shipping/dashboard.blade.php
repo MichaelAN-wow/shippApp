@@ -99,7 +99,8 @@
         const openOrders = @json($openOrders ?? []);
         const inTransit = @json($inTransit ?? []);
         const delivered = @json($delivered ?? []);
-
+        const exceptions = @json($exceptionShipments ?? []);
+        console.log({ openOrders, inTransit, delivered });
         // -------------------------------------------------------------
         // Utility Functions
         // -------------------------------------------------------------
@@ -196,70 +197,71 @@
         // CSV Export
         // -------------------------------------------------------------
         const exportModalEl = document.getElementById('exportModal');
-
         document.getElementById('exportForm').addEventListener('submit', e => {
             e.preventDefault();
+            
+            try {
+                // Get the selected tab from the dropdown
+                const tabSelect = document.getElementById('exportTabSelect');
+                const tab = tabSelect.value;
 
-            const active = document.querySelector('#shippingTabs .nav-link.active');
-            if (!active) return alert('No active tab found!');
+                // Map tab to dataset
+                const dataMap = {
+                    'open-orders': openOrders,
+                    'in-transit': inTransit,
+                    'delivered': delivered,
+                    'exceptions': exceptions
+                };
 
-            const tab = active.id.replace('-tab', '');
-            const map = {
-                'open-orders': 'openOrdersTable',
-                'in-transit': 'inTransitTable',
-                'delivered': 'deliveredTable',
-                'exceptions': 'exceptionsTable'
-            };
+                const dataToExport = dataMap[tab] ?? [];
+                if (!dataToExport.length) throw new Error('No data found for export!');
 
-            const table = document.getElementById(map[tab]);
-            if (!table) return alert('Table not found for export!');
+                // Fixed fields to export
+                const fields = [
+                    { key: 'order_id', label: 'Order #' },
+                    { key: 'order_reference', label: 'Order Reference' },
+                    { key: 'customer_name', label: 'Customer' },
+                    { key: 'carrier', label: 'Carrier' },
+                    { key: 'tracking_number', label: 'Tracking #' },
+                    { key: 'status', label: 'Status' },
+                    { key: 'status_description', label: 'Status Description' },
+                    { key: 'service', label: 'Service' },
+                    { key: 'created_at', label: 'Created At' },
+                    { key: 'estimated_delivery', label: 'Estimated Delivery' },
+                    { key: 'delivered_at', label: 'Delivered At' },
+                    { key: 'last_location', label: 'Last Location' },
+                    { key: 'product_weight', label: 'Product Weight' },
+                    { key: 'total_weight', label: 'Total Weight' },
+                    { key: 'cost', label: 'Cost' }
+                ];
 
-            const selected = [...table.querySelectorAll('tbody tr')]
-                .filter(row => row.querySelector('input[type="checkbox"]')?.checked);
+                // Build CSV header
+                let csv = fields.map(f => `"${f.label}"`).join(',') + '\n';
 
-            if (!selected.length) return alert('No rows selected for export!');
-
-            const essential = ['Order #', 'Customer', 'Carrier', 'Tracking #', 'Status', 'Dates', 'Cost'];
-            const tableHeaders = [...table.querySelectorAll('thead th')]
-                .map(th => th.innerText.trim())
-                .filter(Boolean)
-                .slice(1, -1);
-
-            const headers = [...new Set([...essential, ...tableHeaders])];
-            let csv = headers.map(h => `"${h}"`).join(',') + '\n';
-
-            selected.forEach(row => {
-                const cells = [...row.children].slice(1, -1);
-                const rowData = headers.map(col => {
-                    switch (col) {
-                        case 'Order #': return row.querySelector('td:nth-child(2)')?.innerText ?? '';
-                        case 'Customer': return row.querySelector('td:nth-child(3)')?.innerText ?? '';
-                        case 'Carrier': {
-                            const sel = row.querySelector('td:nth-child(8) select');
-                            return sel ? sel.value : row.querySelector('td:nth-child(4)')?.innerText ?? '';
-                        }
-                        case 'Tracking #': return row.querySelector('td:nth-child(5)')?.innerText ?? '';
-                        case 'Status': return row.querySelector('td:nth-child(8)')?.innerText ?? '';
-                        case 'Dates': return row.querySelector('td:nth-child(6)')?.innerText ?? '';
-                        case 'Cost': return row.querySelector('td:nth-child(9)')?.innerText ?? '';
-                        default:
-                            const idx = tableHeaders.indexOf(col);
-                            return idx >= 0 && cells[idx] ? cells[idx].innerText : '';
-                    }
+                dataToExport.forEach(item => {
+                    const rowData = fields.map(f => {
+                        let value = item[f.key] ?? '';
+                        return `"${String(value).replace(/"/g, '""')}"`;
+                    });
+                    csv += rowData.join(',') + '\n';
                 });
-                csv += rowData.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',') + '\n';
-            });
 
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `shipments_${tab}_${new Date().toISOString().slice(0, 10)}.csv`;
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
+                // Download CSV
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `shipments_${tab}_${new Date().toISOString().slice(0, 10)}.csv`;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
 
-            const modal = bootstrap.Modal.getInstance(exportModalEl);
-            if (modal) modal.hide();
+                // Show success toastr
+                toastr.success('CSV exported successfully.');
+
+            } catch (err) {
+                console.error(err);
+                toastr.error(err.message || 'Failed to export CSV.');
+            }
         });
     });
 

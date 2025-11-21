@@ -10,7 +10,9 @@
                 <th>Customer</th>
                 <th>Carrier</th>
                 <th>Tracking #</th>
-                <th>Issue</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Cost</th>
                 <th style="width: 15%">Actions</th>
             </tr>
         </thead>
@@ -26,6 +28,8 @@
                 <td>{{ $shipment->carrier ?? '-' }}</td>
                 <td>{{ $shipment->tracking_number ?? '-' }}</td>
                 <td>{{ $shipment->status ?? '-' }}</td>
+                <td>{{ $shipment->updated_at ?? '-' }}</td>
+                <td>{{ $shipment->cost ?? '-' }}</td>
                 <td>
                     <button class="btn btn-sm btn-success mr-3">Mark as resolved</button>
                     <button class="btn btn-sm btn-success">resend</button>
