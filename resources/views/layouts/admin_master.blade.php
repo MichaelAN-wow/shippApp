@@ -327,7 +327,7 @@
                     <div class="nav">
 
 <!-- SHIPPING MANAGER LINK -->
-<a class="nav-link {{ request()->is('shipping*') ? 'active' : '' }}" href="{{ route('shipping.index') }}">
+<a class="nav-link {{ request()->is('shipping*') ? 'active' : '' }}" href="{{ route('shipping.dashboard') }}">
     <div class="sb-nav-link-icon">
         <i class="fas fa-truck" style="color: #FFD700; width: 20px;"></i>
     </div>
@@ -340,14 +340,6 @@
         <!-- Dashboard -->
         <a class="nav-link {{ request()->routeIs('shipping.dashboard') ? 'active' : '' }}"
            href="{{ route('shipping.dashboard') }}">Dashboard</a>
-
-        <!-- Create a Shipment -->
- <!--       <a class="nav-link {{ request()->routeIs('shipping.create') ? 'active' : '' }}"
-           href="{{ route('shipping.create') }}">Create a Shipment</a>
--->
-        <!-- Shipped Packages -->
-        <a class="nav-link {{ request()->routeIs('shipping.shipped') ? 'active' : '' }}"
-           href="{{ route('shipping.shipped') }}">Shipped Packages</a>
 
         <!-- Contacts -->
         <a class="nav-link {{ request()->routeIs('shipping.contacts') ? 'active' : '' }}"

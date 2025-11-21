@@ -9,7 +9,7 @@ class BoxInventoryController extends Controller
 {
     public function index()
     {
-        $boxes = Box::orderByDesc('id')->paginate(10);
+        $boxes = Box::orderByDesc('id')->get();
         return view('shipping.box_inventory', compact('boxes'));
     }
 

@@ -58,7 +58,6 @@ class ShippingManagerController extends Controller
             'product_weight_lb' => 'required|integer|min:0',
             'product_weight_oz' => 'required|numeric|min:0|max:15.99',
         ]);
-
         try {
             $sender   = Contact::findOrFail($request->sender_id);
             $receiver = Contact::findOrFail($request->receiver_id);
@@ -179,10 +178,13 @@ class ShippingManagerController extends Controller
             $shipment->save();
 
             if ($box->quantity > 0) $box->decrement('quantity', 1);
-
-            return redirect()->route('shipping.shipped')->with('success','UPS label purchased successfully!');
+dd($shipment);
+            return redirect()->route('shipping.dashboard')
+                ->with('success','UPS label purchased successfully!')
+                ->with('label_gif', asset('storage/'.$fileName));
 
         } catch (\Exception $e) {
+            dd($e);
             return back()->withErrors(['UPS Exception'=>$e->getMessage()]);
         }
     }
@@ -200,6 +202,7 @@ class ShippingManagerController extends Controller
     
     public function updateStatus(Request $request, $shipmentId)
     {
+        dd($request);
         $request->validate([
             'status' => 'required|string|in:pending,in_transit,delivered,cancelled'
         ]);

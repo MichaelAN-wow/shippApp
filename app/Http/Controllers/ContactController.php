@@ -121,4 +121,43 @@ class ContactController extends Controller
         Contact::findOrFail($id)->delete();
         return redirect()->route('shipping.contacts')->with('success', 'Contact deleted successfully.');
     }
+
+    public function bulkDelete(Request $request)
+    {
+        // Convert JSON string → array
+        $ids = json_decode($request->ids, true);
+
+        // Validate that it's actually an array
+        if (!is_array($ids) || empty($ids)) {
+            return back()->withErrors(['Invalid contact IDs.']);
+        }
+
+        Contact::whereIn('id', $ids)->delete();
+
+        return back()->with('success', 'Selected contacts deleted successfully.');
+    }
+
+    public function mergeDuplicates()
+    {
+        // Group by name, email, address
+        $duplicates = Contact::select('name', 'email', 'address')
+            ->groupBy('name', 'email', 'address')
+            ->havingRaw('COUNT(*) > 1')
+            ->get();
+
+        foreach ($duplicates as $group) {
+            $contacts = Contact::where('name', $group->name)
+                ->where('email', $group->email)
+                ->where('address', $group->address)
+                ->get();
+
+            $mainContact = $contacts->first();
+
+            foreach ($contacts->skip(1) as $contact) {
+                $contact->delete();
+            }
+        }
+
+        return back()->with('success', 'All duplicate contacts removed successfully.');
+    }
 }

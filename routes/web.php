@@ -287,7 +287,6 @@ Route::post('/ups/generate-label', [UPSController::class, 'generateLabel']);
 
 Route::middleware(['auth'])->prefix('shipping')->name('shipping.')->group(function () {
 
-    
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     
@@ -306,8 +305,9 @@ Route::middleware(['auth'])->prefix('shipping')->name('shipping.')->group(functi
     Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
     Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
     Route::post('/contacts/import', [ContactController::class, 'import'])->name('contacts.import');
+    Route::delete('/contacts/bulk-delete', [ContactController::class, 'bulkDelete'])->name('contacts.bulkDelete');
+    Route::post('/contacts/merge-duplicates', [ContactController::class, 'mergeDuplicates'])->name('contacts.mergeDuplicates');
     Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
-
     
     Route::get('/labels', [ShippingLabelController::class, 'index'])->name('labels'); 
     Route::get('/labels/create', [ShippingLabelController::class, 'create'])->name('labels.create');
@@ -325,7 +325,10 @@ Route::middleware(['auth'])->prefix('shipping')->name('shipping.')->group(functi
     Route::post('/connections', [ShippingConnectionsController::class, 'store'])->name('connections.store');
     Route::put('/connections/{connection}', [ShippingConnectionsController::class, 'update'])->name('connections.update');
     Route::delete('/connections/{connection}', [ShippingConnectionsController::class, 'destroy'])->name('connections.destroy');
-
+    Route::get('/connections/connect/{carrier}', [ShippingConnectionsController::class, 'connectCarrier'])->name('connections.connectCarrier');
+    Route::get('/connections/disconnect/{connection}', [ShippingConnectionsController::class, 'disconnectCarrier'])->name('connections.disconnect');
+    Route::get('/connections/refresh/{connection}', [ShippingConnectionsController::class, 'refreshSync'])->name('connections.refreshSync');
+    Route::post('/connections/defaults/update', [ShippingConnectionsController::class, 'updateDefaults'])->name('defaults.update');
     
     Route::get('/shipments/{id}/auto-update', [TrackingController::class, 'autoUpdate'])->name('shipments.autoUpdate');
     Route::get('/shipments/auto-update-all', [TrackingController::class, 'autoUpdateAll'])->name('shipments.autoUpdateAll');

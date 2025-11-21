@@ -49,4 +49,10 @@ class Shipment extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function shipment()
+    {
+        return $this->hasOne(Shipment::class, 'order_id');
+    }
+
 }

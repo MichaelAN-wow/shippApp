@@ -1,223 +1,258 @@
 @extends('layouts.admin_master')
 
 @section('content')
-<div class="container my-4">
+<div class="container-fluid m-4">
 
-    <h1 class="mb-4">Shipping Dashboard</h1>
-
-   
-    <div class="row mb-4">
-        <div class="col"><div class="p-3 bg-light border">Pending Orders: {{ $stats['pending_orders'] }}</div></div>
-        <div class="col"><div class="p-3 bg-light border">Shipped Orders: {{ $stats['shipped_orders'] }}</div></div>
-        <div class="col"><div class="p-3 bg-light border">In Transit: {{ $stats['in_transit'] }}</div></div>
-        <div class="col"><div class="p-3 bg-light border">Delivered: {{ $stats['delivered'] }}</div></div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Shipping Dashboard</h1>
     </div>
 
-    
-    <h3>Pending Orders</h3>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Received At</th>
-                <th>Status</th>
-                <th>Create Shipment</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach($openOrders as $order)
-            <tr>
-                <td>{{ $order->id }}</td>
-                <td>{{ $order->received_at }}</td>
-                <td>{{ $order->status }}</td>
-                <td>
-                    <button class="btn btn-primary btn-sm btn-create-shipment" 
-                        data-order-id="{{ $order->id }}"
-                        data-bs-toggle="modal"
-                        data-bs-target="#createShipmentModal">
-                        Create Shipment
-                    </button>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    {{-- Stats Tabs --}}
+    <ul class="nav nav-tabs mb-4" id="shippingTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="open-orders-tab" data-bs-toggle="tab" data-bs-target="#open-orders" type="button" role="tab" aria-controls="open-orders" aria-selected="true">
+                Open Orders ({{ $stats['pending_orders'] ?? 0 }})
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="in-transit-tab" data-bs-toggle="tab" data-bs-target="#in-transit" type="button" role="tab" aria-controls="in-transit" aria-selected="false">
+                In Transit ({{ $stats['in_transit'] ?? 0 }})
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="delivered-tab" data-bs-toggle="tab" data-bs-target="#delivered" type="button" role="tab" aria-controls="delivered" aria-selected="false">
+                Delivered ({{ $stats['delivered'] ?? 0 }})
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="exceptions-tab" data-bs-toggle="tab" data-bs-target="#exceptions" type="button" role="tab" aria-controls="exceptions" aria-selected="false">
+                Exceptions ({{ $stats['exceptions'] ?? 0 }})
+            </button>
+        </li>
+        
+        {{-- Right Buttons --}}
+        <div class="d-flex align-self-right ms-auto mr-4">
+            {{-- Tab-specific button (Purchase) --}}
+            <div id="tabButtons" class="mr-2"></div>
 
-    
-    <h3>Recent Shipments</h3>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Shipment ID</th>
-                <th>Order ID</th>
-                <th>Tracking</th>
-                <th>Carrier</th>
-                <th>Status</th>
-                <th>Created At</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach($recentShipments as $shipment)
-            <tr>
-                <td>{{ $shipment->id }}</td>
-                <td>{{ $shipment->order_id ?? 'N/A' }}</td>
-                <td>{{ $shipment->tracking_number }}</td>
-                <td>{{ $shipment->carrier }}</td>
-                <td>{{ ucfirst($shipment->status) }}</td>
-                <td>{{ $shipment->created_at }}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+            {{-- Always visible export button --}}
+            <button class="btn btn-secondary btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#exportModal">
+                Export
+            </button>
+        </div>
+    </ul>
+
+    {{-- Tab Content --}}
+    <div class="tab-content mr-4" id="shippingTabsContent">
+        <div class="tab-pane fade show active" id="open-orders" role="tabpanel" aria-labelledby="open-orders-tab">
+            @include('shipping.partials.open_orders_table')
+        </div>
+        <div class="tab-pane fade" id="in-transit" role="tabpanel" aria-labelledby="in-transit-tab">
+            @include('shipping.partials.in_transit_table')
+        </div>
+        <div class="tab-pane fade" id="delivered" role="tabpanel" aria-labelledby="delivered-tab">
+            @include('shipping.partials.delivered_table')
+        </div>
+        <div class="tab-pane fade" id="exceptions" role="tabpanel" aria-labelledby="exceptions-tab">
+            @include('shipping.partials.exceptions_table')
+        </div>
+    </div>
+
 </div>
 
+<!-- Purchase Modal -->
+@include('shipping.partials.purchase_label_modal')
 
-<div class="modal fade" id="createShipmentModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <form method="POST" action="{{ route('shipping.store') }}">
-      @csrf
-      <input type="hidden" name="order_id" id="modalOrderId">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Create Shipment</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body row g-3">
-            
-            <div class="col-md-6">
-                <label class="form-label">Sender</label>
-                <select name="sender_id" class="form-select" required>
-                    <option value="">-- Select Sender --</option>
-                    @foreach($contacts as $c)
-                        <option value="{{ $c->id }}">{{ $c->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            
-            <div class="col-md-6">
-                <label class="form-label">Receiver</label>
-                <select name="receiver_id" class="form-select" required>
-                    <option value="">-- Select Receiver --</option>
-                    @foreach($contacts as $c)
-                        <option value="{{ $c->id }}">{{ $c->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            
-            <div class="col-md-6">
-                <label class="form-label">Box</label>
-                <select name="box_id" id="modalBox" class="form-select" required>
-                    <option value="">-- Select Box --</option>
-                    @foreach($boxes as $b)
-                        @php
-                            $totalOz = $b->empty_weight * 35.2739619;
-                            $lb = floor($totalOz / 16);
-                            $oz = $totalOz % 16;
-                        @endphp
-                        <option value="{{ $b->id }}"
-                            data-length="{{ $b->length }}"
-                            data-width="{{ $b->width }}"
-                            data-height="{{ $b->height }}"
-                            data-weight-lb="{{ $lb }}"
-                            data-weight-oz="{{ $oz }}">
-                            {{ $b->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            
-            <div class="col-md-6">
-                <label class="form-label">Box Dimensions (L×W×H cm)</label>
-                <input type="text" id="modalBoxDimensions" class="form-control" readonly>
-            </div>
-            
-            <div class="col-md-6">
-                <label class="form-label">Empty Box Weight</label>
-                <input type="text" id="modalBoxWeight" class="form-control" readonly>
-            </div>
-            
-            <div class="col-md-6">
-                <label class="form-label">Product Weight</label>
-                <div class="input-group">
-                    <input type="number" name="product_weight_lb" id="modalProductWeightLb" class="form-control" placeholder="LB" min="0" required>
-                    <span class="input-group-text">lb</span>
-                    <input type="number" step="0.1" name="product_weight_oz" id="modalProductWeightOz" class="form-control" placeholder="OZ" min="0" required>
-                    <span class="input-group-text">oz</span>
-                </div>
-            </div>
-            
-            <div class="col-md-6">
-                <label class="form-label">Total Weight</label>
-                <input type="text" id="modalTotalWeight" class="form-control" readonly>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Generate Label</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
+<!-- Export Modal -->
+@include('shipping.partials.export_modal')
+
+<!-- View Shipment Modal -->
+@include('shipping.partials.viewModal')
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const modalBox = document.getElementById('modalBox');
-    const modalBoxDimensions = document.getElementById('modalBoxDimensions');
-    const modalBoxWeight = document.getElementById('modalBoxWeight');
-    const modalProductWeightLb = document.getElementById('modalProductWeightLb');
-    const modalProductWeightOz = document.getElementById('modalProductWeightOz');
-    const modalTotalWeight = document.getElementById('modalTotalWeight');
-    const modalOrderId = document.getElementById('modalOrderId');
+    window.openOrders = @json($openOrders ?? []);
 
-    function formatLbOz(lb, oz) {
-        return `${lb} lb ${oz.toFixed(1)} oz`;
-    }
-
-    function addLbOz(lb1, oz1, lb2, oz2){
-        let totalOz = oz1 + oz2;
-        let extraLb = Math.floor(totalOz / 16);
-        let remainingOz = totalOz % 16;
-        let totalLb = lb1 + lb2 + extraLb;
-        return { lb: totalLb, oz: remainingOz };
-    }
-
-    function updateTotalWeight() {
-        const boxLb = parseInt(modalBox.selectedOptions[0]?.dataset.weightLb || 0);
-        const boxOz = parseFloat(modalBox.selectedOptions[0]?.dataset.weightOz || 0);
-        const prodLb = parseInt(modalProductWeightLb.value || 0);
-        const prodOz = parseFloat(modalProductWeightOz.value || 0);
-
-        const total = addLbOz(boxLb, boxOz, prodLb, prodOz);
-        modalTotalWeight.value = formatLbOz(total.lb, total.oz);
-    }
-
-    document.querySelectorAll('.btn-create-shipment').forEach(btn => {
-        btn.addEventListener('click', function() {
-            modalOrderId.value = this.dataset.orderId;
-            modalBoxDimensions.value = '';
-            modalBoxWeight.value = '';
-            modalProductWeightLb.value = '';
-            modalProductWeightOz.value = '';
-            modalTotalWeight.value = '';
+    $(document).ready(function () {
+        // Initialize DataTables
+        $('#openOrdersTable, #inTransitTable, #deliveredTable, #exceptionsTable').DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            pageLength: 10,
+            lengthMenu: [5, 10, 25, 50, 100]
         });
     });
 
-    modalBox.addEventListener('change', function() {
-        const selected = this.selectedOptions[0];
-        if(selected){
-            modalBoxDimensions.value = `${selected.dataset.length}×${selected.dataset.width}×${selected.dataset.height}`;
-            const boxLb = parseInt(selected.dataset.weightLb || 0);
-            const boxOz = parseFloat(selected.dataset.weightOz || 0);
-            modalBoxWeight.value = formatLbOz(boxLb, boxOz);
-        } else {
-            modalBoxDimensions.value = '';
-            modalBoxWeight.value = '0 lb 0 oz';
-        }
-        updateTotalWeight();
-    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabButtonsContainer = document.getElementById('tabButtons');
+        const modalBox = document.getElementById('modalBox');
+        const modalBoxDimensions = document.getElementById('modalBoxDimensions');
+        const modalBoxWeight = document.getElementById('modalBoxWeight');
+        const modalProductWeightLb = document.getElementById('modalProductWeightLb');
+        const modalProductWeightOz = document.getElementById('modalProductWeightOz');
+        const modalTotalWeight = document.getElementById('modalTotalWeight');
+        const modalOrderId = document.getElementById('modalOrderId');
 
-    modalProductWeightLb.addEventListener('input', updateTotalWeight);
-    modalProductWeightOz.addEventListener('input', updateTotalWeight);
-});
+        const openOrders = @json($openOrders ?? []);
+        const inTransit = @json($inTransit ?? []);
+        const delivered = @json($delivered ?? []);
+
+        // Utility functions
+        const formatLbOz = (lb, oz) => `${lb} lb ${oz.toFixed(1)} oz`;
+        const addLbOz = (lb1, oz1, lb2, oz2) => {
+            const totalOz = oz1 + oz2;
+            const extraLb = Math.floor(totalOz / 16);
+            const remainingOz = totalOz % 16;
+            return { lb: lb1 + lb2 + extraLb, oz: remainingOz };
+        };
+        const updateTotalWeight = () => {
+            const box = modalBox.selectedOptions[0];
+            const boxLb = parseInt(box?.dataset.weightLb || 0);
+            const boxOz = parseFloat(box?.dataset.weightOz || 0);
+            const prodLb = parseInt(modalProductWeightLb.value || 0);
+            const prodOz = parseFloat(modalProductWeightOz.value || 0);
+            const total = addLbOz(boxLb, boxOz, prodLb, prodOz);
+            modalTotalWeight.value = formatLbOz(total.lb, total.oz);
+        };
+
+        // Update tab buttons
+        const updateTabButtons = (activeTabId) => {
+            let html = '';
+            if (activeTabId === 'open-orders-tab') {
+                html = `<button class="btn btn-primary btn-sm">Purchase Labels</button>`;
+            } else if (activeTabId === 'in-transit-tab') {
+                html = `<button class="btn btn-success btn-sm" id="btnRefreshStatus">Refresh Status</button>`;
+            }
+            tabButtonsContainer.innerHTML = html;
+
+            // Attach Refresh Status click
+            const btnRefresh = document.getElementById('btnRefreshStatus');
+            if (btnRefresh) {
+                btnRefresh.addEventListener('click', () => {
+                    localStorage.setItem('activeShippingTab', 'in-transit-tab');
+                    location.reload();
+                });
+            }
+        };
+
+        // Initial tab button setup
+        const activeTab = document.querySelector('#shippingTabs .nav-link.active');
+        updateTabButtons(activeTab?.id || 'open-orders-tab');
+
+        // Listen for tab change
+        document.querySelectorAll('#shippingTabs button[data-bs-toggle="tab"]').forEach(tab => {
+            tab.addEventListener('shown.bs.tab', e => updateTabButtons(e.target.id));
+        });
+
+        // Restore active tab after reload
+        const savedTab = localStorage.getItem('activeShippingTab');
+        if (savedTab) {
+            const tabEl = document.getElementById(savedTab);
+            if (tabEl) tabEl.click();
+            localStorage.removeItem('activeShippingTab');
+        }
+
+        // Modal weight updates
+        modalBox.addEventListener('change', () => {
+            const selected = modalBox.selectedOptions[0];
+            if (selected) {
+                modalBoxDimensions.value = `${selected.dataset.length}×${selected.dataset.width}×${selected.dataset.height}`;
+                modalBoxWeight.value = formatLbOz(parseInt(selected.dataset.weightLb || 0), parseFloat(selected.dataset.weightOz || 0));
+            } else {
+                modalBoxDimensions.value = '';
+                modalBoxWeight.value = '0 lb 0 oz';
+            }
+            updateTotalWeight();
+        });
+        modalProductWeightLb.addEventListener('input', updateTotalWeight);
+        modalProductWeightOz.addEventListener('input', updateTotalWeight);
+
+        // Reset modal on create shipment
+        document.querySelectorAll('.btn-create-shipment').forEach(btn => {
+            btn.addEventListener('click', () => {
+                modalOrderId.value = btn.dataset.orderId;
+                modalBoxDimensions.value = '';
+                modalBoxWeight.value = '';
+                modalProductWeightLb.value = '';
+                modalProductWeightOz.value = '';
+                modalTotalWeight.value = '';
+            });
+        });
+
+        // Export CSV
+        const exportModalEl = document.getElementById('exportModal');
+        const exportTabSelect = document.getElementById('exportTabSelect');
+        document.getElementById('exportForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const activeTab = document.querySelector('#shippingTabs .nav-link.active');
+            if (!activeTab) return alert('No active tab found!');
+
+            const tab = activeTab.id.replace('-tab', '');
+            const tableIdMap = {
+                'open-orders': 'openOrdersTable',
+                'in-transit': 'inTransitTable',
+                'delivered': 'deliveredTable',
+                'exceptions': 'exceptionsTable'
+            };
+            const table = document.getElementById(tableIdMap[tab]);
+            if (!table) return alert('Table not found for export!');
+
+            const selectedRows = [...table.querySelectorAll('tbody tr')]
+                .filter(row => row.querySelector('input[type="checkbox"]')?.checked);
+            if (!selectedRows.length) return alert('No rows selected for export!');
+
+            const essentialCols = ['Order #', 'Customer', 'Carrier', 'Tracking #', 'Status', 'Dates', 'Cost'];
+            const tableHeaders = [...table.querySelectorAll('thead th')]
+                .map(th => th.innerText.trim())
+                .filter(Boolean)
+                .slice(1, -1);
+
+            const headers = [...new Set([...essentialCols, ...tableHeaders])];
+            let csv = headers.map(h => `"${h}"`).join(',') + '\n';
+
+            selectedRows.forEach(row => {
+                const cells = [...row.children].slice(1, -1);
+                const rowData = headers.map(col => {
+                    switch (col) {
+                        case 'Order #': return row.querySelector('td:nth-child(2)')?.innerText ?? '';
+                        case 'Customer': return row.querySelector('td:nth-child(3)')?.innerText ?? '';
+                        case 'Carrier': {
+                            const select = row.querySelector('td:nth-child(8) select');
+                            return select ? select.value : row.querySelector('td:nth-child(4)')?.innerText ?? '';
+                        }
+                        case 'Tracking #': return row.querySelector('td:nth-child(5)')?.innerText ?? '';
+                        case 'Status': return row.querySelector('td:nth-child(8)')?.innerText ?? '';
+                        case 'Dates': return row.querySelector('td:nth-child(6)')?.innerText ?? '';
+                        case 'Cost': return row.querySelector('td:nth-child(9)')?.innerText ?? '';
+                        default:
+                            const idx = tableHeaders.indexOf(col);
+                            return idx >= 0 && cells[idx] ? cells[idx].innerText : '';
+                    }
+                });
+                csv += rowData.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',') + '\n';
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `shipments_${tab}_${new Date().toISOString().slice(0, 10)}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+
+            const modal = bootstrap.Modal.getInstance(exportModalEl);
+            if (modal) modal.hide();
+        });
+    });
 </script>
+
+
+@if (session('label_gif'))
+    <script>
+        window.open("{{ session('label_gif') }}", "_blank");
+    </script>
+@endif
 @endsection
