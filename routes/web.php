@@ -292,7 +292,7 @@ Route::middleware(['auth'])->prefix('shipping')->name('shipping.')->group(functi
     
     Route::get('/', [ShippingManagerController::class, 'index'])->name('index');
     Route::get('/shipped-packages', [ShippingManagerController::class, 'index'])->name('shipped');
-    Route::post('/shipped-packages/{id}/update-status', [ShippingManagerController::class, 'updateStatus'])->name('shipped.updateStatus');
+    Route::post('/shipped-packages/update-status/{id}', [ShippingManagerController::class, 'updateStatus'])->name('shipped.updateStatus');
 
     
     Route::post('/store', [ShippingManagerController::class, 'store'])->name('store'); 

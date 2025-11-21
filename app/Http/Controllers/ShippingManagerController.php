@@ -178,7 +178,6 @@ class ShippingManagerController extends Controller
             $shipment->save();
 
             if ($box->quantity > 0) $box->decrement('quantity', 1);
-dd($shipment);
             return redirect()->route('shipping.dashboard')
                 ->with('success','UPS label purchased successfully!')
                 ->with('label_gif', asset('storage/'.$fileName));
@@ -202,7 +201,6 @@ dd($shipment);
     
     public function updateStatus(Request $request, $shipmentId)
     {
-        dd($request);
         $request->validate([
             'status' => 'required|string|in:pending,in_transit,delivered,cancelled'
         ]);
@@ -211,7 +209,7 @@ dd($shipment);
         $shipment->status = $request->status;
         $shipment->save();
 
-        return redirect()->back()->with('success','Shipment status updated!');
+        return response()->json(['success' => true]);
     }
 
     

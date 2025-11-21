@@ -25,7 +25,7 @@
                 <td>{{ $shipment->customer_name ?? '-' }}</td>
                 <td>{{ $shipment->carrier ?? '-' }}</td>
                 <td>{{ $shipment->tracking_number ?? '-' }}</td>
-                <td>{{ $shipment->issue ?? '-' }}</td>
+                <td>{{ $shipment->status ?? '-' }}</td>
                 <td>
                     <button class="btn btn-sm btn-success mr-3">Mark as resolved</button>
                     <button class="btn btn-sm btn-success">resend</button>

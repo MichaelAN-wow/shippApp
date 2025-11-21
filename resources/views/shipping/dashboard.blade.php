@@ -70,10 +70,7 @@
 @include('shipping.partials.viewModal')
 
 <script>
-    window.openOrders = @json($openOrders ?? []);
-
     $(document).ready(function () {
-        // Initialize DataTables
         $('#openOrdersTable, #inTransitTable, #deliveredTable, #exceptionsTable').DataTable({
             paging: true,
             lengthChange: true,
@@ -88,6 +85,7 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         const tabButtonsContainer = document.getElementById('tabButtons');
+
         const modalBox = document.getElementById('modalBox');
         const modalBoxDimensions = document.getElementById('modalBoxDimensions');
         const modalBoxWeight = document.getElementById('modalBoxWeight');
@@ -96,29 +94,39 @@
         const modalTotalWeight = document.getElementById('modalTotalWeight');
         const modalOrderId = document.getElementById('modalOrderId');
 
+        // These JSON Blade injections were causing errors if Blade returned HTML.
+        // Ensure backend sends pure JSON only.
         const openOrders = @json($openOrders ?? []);
         const inTransit = @json($inTransit ?? []);
         const delivered = @json($delivered ?? []);
 
-        // Utility functions
+        // -------------------------------------------------------------
+        // Utility Functions
+        // -------------------------------------------------------------
         const formatLbOz = (lb, oz) => `${lb} lb ${oz.toFixed(1)} oz`;
+
         const addLbOz = (lb1, oz1, lb2, oz2) => {
             const totalOz = oz1 + oz2;
             const extraLb = Math.floor(totalOz / 16);
-            const remainingOz = totalOz % 16;
-            return { lb: lb1 + lb2 + extraLb, oz: remainingOz };
+            return {
+                lb: lb1 + lb2 + extraLb,
+                oz: totalOz % 16
+            };
         };
+
         const updateTotalWeight = () => {
-            const box = modalBox.selectedOptions[0];
-            const boxLb = parseInt(box?.dataset.weightLb || 0);
-            const boxOz = parseFloat(box?.dataset.weightOz || 0);
+            const sel = modalBox.selectedOptions[0];
+            const boxLb = parseInt(sel?.dataset.weightLb || 0);
+            const boxOz = parseFloat(sel?.dataset.weightOz || 0);
             const prodLb = parseInt(modalProductWeightLb.value || 0);
             const prodOz = parseFloat(modalProductWeightOz.value || 0);
             const total = addLbOz(boxLb, boxOz, prodLb, prodOz);
             modalTotalWeight.value = formatLbOz(total.lb, total.oz);
         };
 
-        // Update tab buttons
+        // -------------------------------------------------------------
+        // Tab Buttons
+        // -------------------------------------------------------------
         const updateTabButtons = (activeTabId) => {
             let html = '';
             if (activeTabId === 'open-orders-tab') {
@@ -128,7 +136,7 @@
             }
             tabButtonsContainer.innerHTML = html;
 
-            // Attach Refresh Status click
+            // Bind refresh
             const btnRefresh = document.getElementById('btnRefreshStatus');
             if (btnRefresh) {
                 btnRefresh.addEventListener('click', () => {
@@ -138,39 +146,41 @@
             }
         };
 
-        // Initial tab button setup
         const activeTab = document.querySelector('#shippingTabs .nav-link.active');
         updateTabButtons(activeTab?.id || 'open-orders-tab');
 
-        // Listen for tab change
         document.querySelectorAll('#shippingTabs button[data-bs-toggle="tab"]').forEach(tab => {
             tab.addEventListener('shown.bs.tab', e => updateTabButtons(e.target.id));
         });
 
-        // Restore active tab after reload
         const savedTab = localStorage.getItem('activeShippingTab');
         if (savedTab) {
-            const tabEl = document.getElementById(savedTab);
-            if (tabEl) tabEl.click();
+            const el = document.getElementById(savedTab);
+            if (el) el.click();
             localStorage.removeItem('activeShippingTab');
         }
 
-        // Modal weight updates
+        // -------------------------------------------------------------
+        // Modal Weight
+        // -------------------------------------------------------------
         modalBox.addEventListener('change', () => {
-            const selected = modalBox.selectedOptions[0];
-            if (selected) {
-                modalBoxDimensions.value = `${selected.dataset.length}×${selected.dataset.width}×${selected.dataset.height}`;
-                modalBoxWeight.value = formatLbOz(parseInt(selected.dataset.weightLb || 0), parseFloat(selected.dataset.weightOz || 0));
+            const sel = modalBox.selectedOptions[0];
+            if (sel) {
+                modalBoxDimensions.value = `${sel.dataset.length}×${sel.dataset.width}×${sel.dataset.height}`;
+                modalBoxWeight.value = formatLbOz(
+                    parseInt(sel.dataset.weightLb || 0),
+                    parseFloat(sel.dataset.weightOz || 0)
+                );
             } else {
                 modalBoxDimensions.value = '';
                 modalBoxWeight.value = '0 lb 0 oz';
             }
             updateTotalWeight();
         });
+
         modalProductWeightLb.addEventListener('input', updateTotalWeight);
         modalProductWeightOz.addEventListener('input', updateTotalWeight);
 
-        // Reset modal on create shipment
         document.querySelectorAll('.btn-create-shipment').forEach(btn => {
             btn.addEventListener('click', () => {
                 modalOrderId.value = btn.dataset.orderId;
@@ -182,46 +192,51 @@
             });
         });
 
-        // Export CSV
+        // -------------------------------------------------------------
+        // CSV Export
+        // -------------------------------------------------------------
         const exportModalEl = document.getElementById('exportModal');
-        const exportTabSelect = document.getElementById('exportTabSelect');
+
         document.getElementById('exportForm').addEventListener('submit', e => {
             e.preventDefault();
-            const activeTab = document.querySelector('#shippingTabs .nav-link.active');
-            if (!activeTab) return alert('No active tab found!');
 
-            const tab = activeTab.id.replace('-tab', '');
-            const tableIdMap = {
+            const active = document.querySelector('#shippingTabs .nav-link.active');
+            if (!active) return alert('No active tab found!');
+
+            const tab = active.id.replace('-tab', '');
+            const map = {
                 'open-orders': 'openOrdersTable',
                 'in-transit': 'inTransitTable',
                 'delivered': 'deliveredTable',
                 'exceptions': 'exceptionsTable'
             };
-            const table = document.getElementById(tableIdMap[tab]);
+
+            const table = document.getElementById(map[tab]);
             if (!table) return alert('Table not found for export!');
 
-            const selectedRows = [...table.querySelectorAll('tbody tr')]
+            const selected = [...table.querySelectorAll('tbody tr')]
                 .filter(row => row.querySelector('input[type="checkbox"]')?.checked);
-            if (!selectedRows.length) return alert('No rows selected for export!');
 
-            const essentialCols = ['Order #', 'Customer', 'Carrier', 'Tracking #', 'Status', 'Dates', 'Cost'];
+            if (!selected.length) return alert('No rows selected for export!');
+
+            const essential = ['Order #', 'Customer', 'Carrier', 'Tracking #', 'Status', 'Dates', 'Cost'];
             const tableHeaders = [...table.querySelectorAll('thead th')]
                 .map(th => th.innerText.trim())
                 .filter(Boolean)
                 .slice(1, -1);
 
-            const headers = [...new Set([...essentialCols, ...tableHeaders])];
+            const headers = [...new Set([...essential, ...tableHeaders])];
             let csv = headers.map(h => `"${h}"`).join(',') + '\n';
 
-            selectedRows.forEach(row => {
+            selected.forEach(row => {
                 const cells = [...row.children].slice(1, -1);
                 const rowData = headers.map(col => {
                     switch (col) {
                         case 'Order #': return row.querySelector('td:nth-child(2)')?.innerText ?? '';
                         case 'Customer': return row.querySelector('td:nth-child(3)')?.innerText ?? '';
                         case 'Carrier': {
-                            const select = row.querySelector('td:nth-child(8) select');
-                            return select ? select.value : row.querySelector('td:nth-child(4)')?.innerText ?? '';
+                            const sel = row.querySelector('td:nth-child(8) select');
+                            return sel ? sel.value : row.querySelector('td:nth-child(4)')?.innerText ?? '';
                         }
                         case 'Tracking #': return row.querySelector('td:nth-child(5)')?.innerText ?? '';
                         case 'Status': return row.querySelector('td:nth-child(8)')?.innerText ?? '';
@@ -247,8 +262,161 @@
             if (modal) modal.hide();
         });
     });
-</script>
 
+    document.addEventListener('DOMContentLoaded', () => {
+        const shipmentModalEl = document.getElementById('shipmentModal');
+        const shipmentModal = new bootstrap.Modal(shipmentModalEl);
+
+        shipmentModalEl.addEventListener('hidden.bs.modal', () => {
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+            document.body.classList.remove('modal-open');
+            document.getElementById('m_boxes').innerHTML = '';
+        });
+
+        // JSON Blade imports
+        const inTransitData = @json($inTransit ?? []);
+        const deliveredData = @json($delivered ?? []);
+
+        const getStatusBadgeClass = (status) => {
+            switch ((status ?? '').toLowerCase()) {
+                case 'delivered': return 'bg-success';
+                case 'in transit': return 'bg-primary';
+                case 'pending': return 'bg-warning';
+                case 'failed': return 'bg-danger';
+                default: return 'bg-secondary';
+            }
+        };
+
+        const populateShipmentModal = (s) => {
+            document.getElementById('m_ship_id').innerText = s.id ?? '-';
+            document.getElementById('m_order_id').innerText = s.order_id ?? '-';
+            document.getElementById('m_customer').innerText = s.customer_name ?? '-';
+            document.getElementById('m_carrier').innerText = s.carrier ?? '-';
+            document.getElementById('m_tracking').innerText = s.tracking_number ?? '-';
+            document.getElementById('m_last_scan').innerText = s.last_tracked_at ?? '-';
+            document.getElementById('m_eta').innerText = s.estimated_delivery ?? '-';
+
+            const statusEl = document.getElementById('m_status');
+            statusEl.innerText = s.status ?? '-';
+            statusEl.className = 'badge ' + getStatusBadgeClass(s.status);
+
+            document.getElementById('m_delivered_at').innerText = s.delivered_at ?? '-';
+            document.getElementById('m_service').innerText = s.service ?? '-';
+
+            const boxList = document.getElementById('m_boxes');
+            boxList.innerHTML = '';
+
+            if (s.boxes?.length) {
+                s.boxes.forEach(box => {
+                    const li = document.createElement('li');
+                    li.className = 'list-group-item d-flex justify-content-between';
+                    li.innerHTML = `<span>Box #${box.id}</span><span class="fw-bold">${box.weight} lbs</span>`;
+                    boxList.appendChild(li);
+                });
+            } else {
+                const li = document.createElement('li');
+                li.className = 'list-group-item text-muted';
+                li.innerText = 'No boxes recorded';
+                boxList.appendChild(li);
+            }
+        };
+
+        const showShipmentById = (id, dataset) => {
+            const s = dataset.find(x => String(x.id) === String(id));
+            if (!s) return toastr.error('Shipment not found.');
+            populateShipmentModal(s);
+            shipmentModal.show();
+        };
+
+        // Delegated table bindings
+        const inTransitTable = document.getElementById('inTransitTable');
+        if (inTransitTable) {
+            inTransitTable.addEventListener('click', (e) => {
+                const viewBtn = e.target.closest('.btn-in-transit-view');
+                if (viewBtn) {
+                    e.preventDefault();
+                    showShipmentById(viewBtn.dataset.shipmentId, inTransitData);
+                    return;
+                }
+
+                const markDeliveredBtn = e.target.closest('.btn-mark-delivered');
+                if (markDeliveredBtn) {
+                    e.preventDefault();
+                    const id = markDeliveredBtn.dataset.shipmentId;
+                    const url = markDeliveredBtn.dataset.updateUrl;
+                    if (!confirm(`Mark shipment #${id} as Delivered?`)) return;
+
+                    const csrf = document.querySelector('meta[name="csrf-token"]').content;
+
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrf
+                        },
+                        body: JSON.stringify({ status: 'delivered' })
+                    })
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.success) {
+                            const row = markDeliveredBtn.closest('tr');
+                            if (row) row.querySelector('td:nth-child(8)').textContent = 'Delivered';
+                            toastr.success('Shipment marked as Delivered!');
+                        } else {
+                            toastr.error(data.message || 'Failed to update shipment.');
+                        }
+                    })
+                    .catch((e) => console.log(e));
+                    return;
+                }
+
+                const reportLostBtn = e.target.closest('.btn-report-lost');
+                if (reportLostBtn) {
+                    e.preventDefault();
+                    const id = reportLostBtn.dataset.shipmentId;
+                    const url = reportLostBtn.dataset.updateUrl;
+
+                    if (!confirm(`Report shipment #${id} as LOST?`)) return;
+
+                    const csrf = document.querySelector('meta[name="csrf-token"]').content;
+
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrf
+                        },
+                        body: JSON.stringify({ status: 'cancelled' })
+                    })
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.success) {
+                            const row = reportLostBtn.closest('tr');
+                            if (row) row.querySelector('td:nth-child(8)').textContent = 'Lost';
+                            toastr.warning('Shipment reported as LOST.');
+                        } else {
+                            toastr.error(data.message || 'Failed to update shipment.');
+                        }
+                    })
+                    .catch((e) => console.log(e));
+
+                    return;
+                }
+            });
+        }
+
+        const deliveredTable = document.getElementById('deliveredTable');
+        if (deliveredTable) {
+            deliveredTable.addEventListener('click', (e) => {
+                const btn = e.target.closest('.btn-delivered-view');
+                if (!btn) return;
+                e.preventDefault();
+                showShipmentById(btn.dataset.shipmentId, deliveredData);
+            });
+        }
+    });
+
+</script>
 
 @if (session('label_gif'))
     <script>

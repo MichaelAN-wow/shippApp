@@ -63,8 +63,6 @@
             <!-- Body -->
             <div class="modal-body p-4">
 
-                <!-- Basic Information -->
-                <h6 class="section-title">Basic Information</h6>
                 <div class="row g-3 mb-3">
                     <div class="col-md-6 info-item">
                         <label>Shipment ID</label>
@@ -84,8 +82,6 @@
                     </div>
                 </div>
 
-                <!-- Tracking & Status -->
-                <h6 class="section-title">Tracking & Status</h6>
                 <div class="row g-3 mb-3">
                     <div class="col-md-6 info-item">
                         <label>Tracking #</label>
@@ -113,8 +109,6 @@
                     </div>
                 </div>
 
-                <!-- Boxes -->
-                <h6 class="section-title">Boxes</h6>
                 <ul id="m_boxes" class="list-group mb-0"></ul>
 
             </div>
@@ -129,16 +123,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    const shipmentModalEl = document.getElementById('shipmentModal');
-
-    const shipmentModal = new bootstrap.Modal(shipmentModalEl);
-
-    shipmentModalEl.querySelectorAll('[data-bs-dismiss="modal"]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            shipmentModal.hide();
-        });
-    });
-
-</script>

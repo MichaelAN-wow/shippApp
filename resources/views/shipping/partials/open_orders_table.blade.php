@@ -62,19 +62,3 @@
         </tbody>
     </table>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const selectAll = document.getElementById('selectAllOrders');
-        const checkboxes = document.querySelectorAll('.select-order');
-
-        selectAll.addEventListener('change', function() {
-            checkboxes.forEach(cb => cb.checked = selectAll.checked);
-        });
-
-        document.querySelectorAll('.btn-create-shipment').foreach(btn => {
-            const orderId = this.dataset.orderId;
-            window.selectedOrderID = orderId;
-        })
-    });
-</script>
